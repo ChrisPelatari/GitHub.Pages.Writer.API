@@ -2,3 +2,7 @@ _site/
 .sass-cache/
 .jekyll-cache/
 .jekyll-metadata
+.vs/Jekyll.MetaWeblog/xs/
+Jekyll.MetaWeblog/bin/
+.vscode/
+Jekyll.MetaWeblog/obj/

@@ -12,7 +12,7 @@
     "Jekyll.MetaWeblog": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "weatherforecast",
+      "launchUrl": "metablog",
       "applicationUrl": "https://localhost:7043;http://localhost:5168",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
@@ -21,7 +21,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "weatherforecast",
+      "launchUrl": "metablog",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
