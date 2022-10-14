@@ -81,12 +81,12 @@ namespace Jekyll.MetaWeblog
 
         public Task<UserInfo> GetUserInfoAsync(string key, string username, string password)
         {
-            throw new NotImplementedException();
+            return Task.FromResult<UserInfo>(new UserInfo { userid = username, firstname = "Chris", lastname = "Pelatari" });
         }
 
         public Task<BlogInfo[]> GetUsersBlogsAsync(string key, string username, string password)
         {
-            throw new NotImplementedException();
+            return Task.FromResult<BlogInfo[]>(new BlogInfo[] { new BlogInfo { blogid = "1", blogName = "blue_fenix", url = "https://localhost:7043" } });
         }
 
         public Task<MediaObjectInfo> NewMediaObjectAsync(string blogid, string username, string password, MediaObject mediaObject)
