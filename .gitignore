@@ -5,4 +5,5 @@ _site/
 .vs/Jekyll.MetaWeblog/xs/
 Jekyll.MetaWeblog/bin/
 .vscode/
+.vs/
 Jekyll.MetaWeblog/obj/
