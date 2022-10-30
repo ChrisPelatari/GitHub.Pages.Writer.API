@@ -8,6 +8,10 @@
 
   <ItemGroup>
     <None Remove="WilderMinds.MetaWeblog" />
+    <None Remove="Tests\" />
+    <None Remove="xunit" />
+    <None Remove="FluentAssertions" />
+    <None Remove="Moq" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md">
@@ -16,5 +20,11 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="WilderMinds.MetaWeblog" Version="5.0.0" />
+    <PackageReference Include="xunit" Version="2.4.2" />
+    <PackageReference Include="FluentAssertions" Version="6.8.0" />
+    <PackageReference Include="Moq" Version="4.18.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Tests\" />
   </ItemGroup>
 </Project>
