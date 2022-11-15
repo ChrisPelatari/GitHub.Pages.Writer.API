@@ -1,13 +1,17 @@
 ﻿using System;
 using WilderMinds.MetaWeblog;
+using YamlDotNet.Serialization;
 
 namespace Jekyll.MetaWeblog
 {
     public class MetaWeblogProvider : IMetaWeblogProvider
     {
-        public MetaWeblogProvider()
+        public MetaWeblogProvider(IConfiguration config)
         {
+            Config = config;
         }
+
+        public IConfiguration Config { get; }
 
         public Task<int> AddCategoryAsync(string key, string username, string password, NewCategory category)
         {
@@ -81,12 +85,20 @@ namespace Jekyll.MetaWeblog
 
         public Task<UserInfo> GetUserInfoAsync(string key, string username, string password)
         {
-            return Task.FromResult<UserInfo>(new UserInfo { userid = username, firstname = "Chris", lastname = "Pelatari" });
+            return Task.FromResult<UserInfo>(new UserInfo {
+                userid = username,
+                firstname = "Chris",
+                lastname = "Pelatari",
+                url = Config["url"]
+            });
         }
 
-        public Task<BlogInfo[]> GetUsersBlogsAsync(string key, string username, string password)
-        {
-            return Task.FromResult<BlogInfo[]>(new BlogInfo[] { new BlogInfo { blogid = "1", blogName = "blue_fenix", url = "https://localhost:7043" } });
+        public async Task<BlogInfo[]> GetUsersBlogsAsync(string key, string username, string password)
+        { 
+            var configYaml = await File.ReadAllTextAsync(Path.Combine(Config["folder"], "_config.yml"));
+            var deserializer = new Deserializer();
+            var config = deserializer.Deserialize<Dictionary<string, string>>(configYaml);
+            return await Task.FromResult<BlogInfo[]>(new BlogInfo[] { new BlogInfo { blogid = "1", blogName = config["title"], url = Config["url"] } });
         }
 
         public Task<MediaObjectInfo> NewMediaObjectAsync(string blogid, string username, string password, MediaObject mediaObject)

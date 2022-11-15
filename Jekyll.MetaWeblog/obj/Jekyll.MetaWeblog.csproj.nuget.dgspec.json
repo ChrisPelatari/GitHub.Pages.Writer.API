@@ -42,6 +42,10 @@
               "target": "Package",
               "version": "[6.8.0, )"
             },
+            "Microsoft.TestPlatform.TestHost": {
+              "target": "Package",
+              "version": "[17.4.0, )"
+            },
             "Moq": {
               "target": "Package",
               "version": "[4.18.2, )"
@@ -49,6 +53,10 @@
             "WilderMinds.MetaWeblog": {
               "target": "Package",
               "version": "[5.0.0, )"
+            },
+            "YamlDotNet": {
+              "target": "Package",
+              "version": "[12.0.2, )"
             },
             "xunit": {
               "target": "Package",

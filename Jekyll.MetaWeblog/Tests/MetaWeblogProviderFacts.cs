@@ -6,36 +6,32 @@ using WilderMinds.MetaWeblog;
 
 namespace Jekyll.MetaWeblog.Tests
 {
-    public class MetaWeblogProviderFacts
+    public class MetaWeblogProviderFacts : IClassFixture<TestSetup>
     {
-        public MetaWeblogProviderFacts()
+        private readonly TestSetup _testSetup;
+        ServiceProvider _serviceProvider;
+        IConfiguration Config;
+
+        public MetaWeblogProviderFacts(TestSetup testSetup)
         {
+            _testSetup = testSetup;
+            _serviceProvider = testSetup.ServiceProvider;
+            Config = _serviceProvider.GetService<IConfiguration>();
         }
 
         [Fact]
         public async Task GetUserInfo_Should_return_user_info()
         {
             //arrange
-            Mock<MetaWeblogProvider> mwp = new();
-
-            mwp.Setup(m => m.GetUserInfoAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(new Task<UserInfo>(() => new UserInfo
-            {
-                userid = "1",
-                firstname = "Chris",
-                lastname = "Pelatari",
-                email = "chris@example.com",
-                url = "https://example.com"
-            }));
-
-            var userinfo = await mwp.Object.GetUserInfoAsync("1", "2", "3");
-            //   mwp.Verify
+            var mwp = new MetaWeblogProvider(Config);
+            var userinfo = await mwp.GetUserInfoAsync("1", "ChrisPelatari", "3");
+            
 
             userinfo.Should().NotBeNull();
-            userinfo.userid.Should().Be("1");
+            userinfo.userid.Should().Be("ChrisPelatari");
             userinfo.firstname.Should().Be("Chris");
             userinfo.lastname.Should().Be("Pelatari");
-            userinfo.email.Should().Be("chris@example.com");
-            userinfo.url.Should().Be("https://example.com");
+            userinfo.url.Should().Be("https://localhost:7043");
         }
     }
 }
