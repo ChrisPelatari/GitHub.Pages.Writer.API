@@ -1,7 +1,6 @@
 ﻿using System;
 using Xunit;
 using FluentAssertions;
-using Moq;
 using WilderMinds.MetaWeblog;
 
 namespace Jekyll.MetaWeblog.Tests
