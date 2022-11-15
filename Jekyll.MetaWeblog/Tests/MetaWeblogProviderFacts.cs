@@ -33,6 +33,30 @@ namespace Jekyll.MetaWeblog.Tests
             userinfo.lastname.Should().Be("Pelatari");
             userinfo.url.Should().Be("https://localhost:7043");
         }
+
+        [Fact]
+        public async Task GetUsersBlogs_should_return_blog_info()
+        {
+            //arrange
+            var bloginfo = await metaWeblog.GetUsersBlogsAsync("1", "ChrisPelatari", "3");
+
+            bloginfo.Length.Should().Be(1);
+            bloginfo[0].Should().NotBeNull();
+            bloginfo[0].blogid.Should().Be("1");
+            bloginfo[0].blogName.Should().Be("Blue Fenix Productions");
+            bloginfo[0].url.Should().Be("https://localhost:7043");
+        }
+
+        [Fact]
+        public async Task GetAuthors_should_return_author()
+        {
+            var author = await metaWeblog.GetAuthorsAsync("1", "ChrisPelatari", "3");
+
+            author.Length.Should().Be(1);
+            author[0].display_name.Should().Be("Chris Pelatari");
+            author[0].user_id.Should().Be("ChrisPelatari");
+            author[0].user_login.Should().Be("ChrisPelatari");
+        }
     }
 }
 

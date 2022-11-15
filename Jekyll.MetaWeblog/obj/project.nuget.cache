@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "g2n302iBh+fr5/83jSOP9928N75P++V8gb0mVkDUGVqNe2moA9XAvQWC9VZlcnVAMUm4GO804XLL2Js4hitpZQ==",
+  "dgSpecHash": "3NAzQaK6+5GdMh/P67da2ojatdHqHpI9JZy2TH9icr5XXrZZ5G06PNjo8VIf314+vaHDGzG//wgvI/s/ieIa0w==",
   "success": true,
   "projectFilePath": "/Users/chris/Documents/GitHub/Jekyll.MetaWeblog/Jekyll.MetaWeblog/Jekyll.MetaWeblog.csproj",
   "expectedPackageFiles": [
@@ -103,8 +103,7 @@
     "/Users/chris/.nuget/packages/xunit.core/2.4.2/xunit.core.2.4.2.nupkg.sha512",
     "/Users/chris/.nuget/packages/xunit.extensibility.core/2.4.2/xunit.extensibility.core.2.4.2.nupkg.sha512",
     "/Users/chris/.nuget/packages/xunit.extensibility.execution/2.4.2/xunit.extensibility.execution.2.4.2.nupkg.sha512",
-    "/Users/chris/.nuget/packages/xunit.runner.visualstudio/2.4.5/xunit.runner.visualstudio.2.4.5.nupkg.sha512",
-    "/Users/chris/.nuget/packages/yamldotnet/12.0.2/yamldotnet.12.0.2.nupkg.sha512"
+    "/Users/chris/.nuget/packages/xunit.runner.visualstudio/2.4.5/xunit.runner.visualstudio.2.4.5.nupkg.sha512"
   ],
   "logs": []
 }

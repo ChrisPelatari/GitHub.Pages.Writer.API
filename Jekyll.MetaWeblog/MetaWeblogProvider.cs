@@ -1,6 +1,5 @@
 ﻿using System;
 using WilderMinds.MetaWeblog;
-using YamlDotNet.Serialization;
 
 namespace Jekyll.MetaWeblog
 {
@@ -48,9 +47,18 @@ namespace Jekyll.MetaWeblog
             throw new NotImplementedException();
         }
 
-        public Task<Author[]> GetAuthorsAsync(string blogid, string username, string password)
+        public async Task<Author[]> GetAuthorsAsync(string blogid, string username, string password)
         {
-            throw new NotImplementedException();
+            var author = new Author[] {
+                new Author
+                {
+                    display_name = "Chris Pelatari",
+                    user_id = "ChrisPelatari",
+                    user_login = "ChrisPelatari"
+                }
+            };
+
+            return await Task.FromResult(author);
         }
 
         public Task<CategoryInfo[]> GetCategoriesAsync(string blogid, string username, string password)
@@ -95,10 +103,7 @@ namespace Jekyll.MetaWeblog
 
         public async Task<BlogInfo[]> GetUsersBlogsAsync(string key, string username, string password)
         { 
-            var configYaml = await File.ReadAllTextAsync(Path.Combine(Config["folder"], "_config.yml"));
-            var deserializer = new Deserializer();
-            var config = deserializer.Deserialize<Dictionary<string, string>>(configYaml);
-            return await Task.FromResult<BlogInfo[]>(new BlogInfo[] { new BlogInfo { blogid = "1", blogName = config["title"], url = Config["url"] } });
+            return await Task.FromResult<BlogInfo[]>(new BlogInfo[] { new BlogInfo { blogid = "1", blogName = "Blue Fenix Productions", url = Config["url"] } });
         }
 
         public Task<MediaObjectInfo> NewMediaObjectAsync(string blogid, string username, string password, MediaObject mediaObject)
