@@ -27,7 +27,6 @@ namespace Jekyll.MetaWeblog.Tests
             //arrange
             var userinfo = await metaWeblog.GetUserInfoAsync("1", "ChrisPelatari", "3");
             
-
             userinfo.Should().NotBeNull();
             userinfo.userid.Should().Be("ChrisPelatari");
             userinfo.firstname.Should().Be("Chris");
