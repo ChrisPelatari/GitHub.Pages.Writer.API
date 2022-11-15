@@ -22,7 +22,7 @@ namespace Jekyll.MetaWeblog.Tests
         }
 
         [Fact]
-        public async Task GetUserInfo_Should_return_user_info()
+        public async Task GetUserInfo_should_return_user_info()
         {
             //arrange
             var userinfo = await metaWeblog.GetUserInfoAsync("1", "ChrisPelatari", "3");
