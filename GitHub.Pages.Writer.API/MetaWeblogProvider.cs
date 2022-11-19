@@ -97,18 +97,18 @@ namespace Jekyll.MetaWeblog
                 userid = Config["blog:Author:user_id"],
                 firstname = Config["blog:Author:first_name"],
                 lastname = Config["blog:Author:last_name"],
-                url = Config["url"]
+                url = Config["blog:url"]
             });
         }
 
         public async Task<BlogInfo[]> GetUsersBlogsAsync(string key, string username, string password)
         { 
-            return await Task.FromResult<BlogInfo[]>(new BlogInfo[] { new BlogInfo { blogid = Config["blog:id"], blogName = Config["blog:name"], url = Config["url"] } });
+            return await Task.FromResult<BlogInfo[]>(new BlogInfo[] { new BlogInfo { blogid = Config["blog:id"], blogName = Config["blog:name"], url = Config["blog:url"] } });
         }
 
-        public Task<MediaObjectInfo> NewMediaObjectAsync(string blogid, string username, string password, MediaObject mediaObject)
+        public async Task<MediaObjectInfo> NewMediaObjectAsync(string blogid, string username, string password, MediaObject mediaObject)
         {
-            throw new NotImplementedException();
+            return await Task.FromResult<MediaObjectInfo>(new MediaObjectInfo { url = "https://" });
         }
     }
 }
