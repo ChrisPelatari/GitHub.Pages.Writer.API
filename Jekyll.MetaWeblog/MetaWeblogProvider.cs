@@ -52,9 +52,9 @@ namespace Jekyll.MetaWeblog
             var author = new Author[] {
                 new Author
                 {
-                    display_name = "Chris Pelatari",
-                    user_id = "ChrisPelatari",
-                    user_login = "ChrisPelatari"
+                    display_name = Config["blog:Author:display_name"],
+                    user_id = Config["blog:Author:user_id"],
+                    user_login = Config["blog:Author:user_login"]
                 }
             };
 
@@ -94,16 +94,16 @@ namespace Jekyll.MetaWeblog
         public Task<UserInfo> GetUserInfoAsync(string key, string username, string password)
         {
             return Task.FromResult<UserInfo>(new UserInfo {
-                userid = username,
-                firstname = "Chris",
-                lastname = "Pelatari",
+                userid = Config["blog:Author:user_id"],
+                firstname = Config["blog:Author:first_name"],
+                lastname = Config["blog:Author:last_name"],
                 url = Config["url"]
             });
         }
 
         public async Task<BlogInfo[]> GetUsersBlogsAsync(string key, string username, string password)
         { 
-            return await Task.FromResult<BlogInfo[]>(new BlogInfo[] { new BlogInfo { blogid = "1", blogName = "Blue Fenix Productions", url = Config["url"] } });
+            return await Task.FromResult<BlogInfo[]>(new BlogInfo[] { new BlogInfo { blogid = Config["blog:id"], blogName = Config["blog:name"], url = Config["url"] } });
         }
 
         public Task<MediaObjectInfo> NewMediaObjectAsync(string blogid, string username, string password, MediaObject mediaObject)

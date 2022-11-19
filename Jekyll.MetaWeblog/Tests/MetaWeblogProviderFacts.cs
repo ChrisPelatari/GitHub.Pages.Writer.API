@@ -24,7 +24,7 @@ namespace Jekyll.MetaWeblog.Tests
         public async Task GetUserInfo_should_return_user_info()
         {
             //arrange
-            var userinfo = await metaWeblog.GetUserInfoAsync("1", "ChrisPelatari", "3");
+            var userinfo = await metaWeblog.GetUserInfoAsync("1", "ChrisPelatari", "");
             
             userinfo.Should().NotBeNull();
             userinfo.userid.Should().Be("ChrisPelatari");
@@ -37,7 +37,7 @@ namespace Jekyll.MetaWeblog.Tests
         public async Task GetUsersBlogs_should_return_blog_info()
         {
             //arrange
-            var bloginfo = await metaWeblog.GetUsersBlogsAsync("1", "ChrisPelatari", "3");
+            var bloginfo = await metaWeblog.GetUsersBlogsAsync("1", "ChrisPelatari", "");
 
             bloginfo.Length.Should().Be(1);
             bloginfo[0].Should().NotBeNull();
@@ -49,7 +49,7 @@ namespace Jekyll.MetaWeblog.Tests
         [Fact]
         public async Task GetAuthors_should_return_author()
         {
-            var author = await metaWeblog.GetAuthorsAsync("1", "ChrisPelatari", "3");
+            var author = await metaWeblog.GetAuthorsAsync("1", "ChrisPelatari", "");
 
             author.Length.Should().Be(1);
             author[0].display_name.Should().Be("Chris Pelatari");
