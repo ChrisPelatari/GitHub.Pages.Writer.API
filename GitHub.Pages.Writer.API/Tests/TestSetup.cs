@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Jekyll.MetaWeblog.Tests
+namespace GitHub.Pages.Writer.API.Tests
 {
 	public class TestSetup
 	{

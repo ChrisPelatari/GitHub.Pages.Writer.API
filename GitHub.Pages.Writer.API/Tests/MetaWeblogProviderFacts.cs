@@ -3,7 +3,7 @@ using Xunit;
 using FluentAssertions;
 using WilderMinds.MetaWeblog;
 
-namespace Jekyll.MetaWeblog.Tests
+namespace GitHub.Pages.Writer.API.Tests
 {
     public class MetaWeblogProviderFacts : IClassFixture<TestSetup>
     {

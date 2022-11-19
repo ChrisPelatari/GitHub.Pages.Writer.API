@@ -1,4 +1,4 @@
-﻿using Jekyll.MetaWeblog;
+﻿using GitHub.Pages.Writer.API;
 using WilderMinds.MetaWeblog;
 
 var builder = WebApplication.CreateBuilder(args);

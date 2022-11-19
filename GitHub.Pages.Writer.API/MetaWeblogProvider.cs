@@ -1,7 +1,7 @@
 ﻿using System;
 using WilderMinds.MetaWeblog;
 
-namespace Jekyll.MetaWeblog
+namespace GitHub.Pages.Writer.API
 {
     public class MetaWeblogProvider : IMetaWeblogProvider
     {
