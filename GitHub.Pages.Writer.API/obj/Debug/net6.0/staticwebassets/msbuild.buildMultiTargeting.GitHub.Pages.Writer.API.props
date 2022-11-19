@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../build/GitHub.Pages.Writer.API.props" />
+</Project>

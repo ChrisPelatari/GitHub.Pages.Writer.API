@@ -1,9 +1,10 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 25.0.1703.7
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitHub.Pages.Writer.API", "Jekyll.MetaWeblog\GitHub.Pages.Writer.API.csproj", "{BE7B54FA-6EEC-4127-A7E3-A04426A49EDD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitHub.Pages.Writer.API", "GitHub.Pages.Writer.API\GitHub.Pages.Writer.API.csproj", "{B6CA5CFE-4957-4422-9D4E-0E6329C099F2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +16,10 @@ Global
 		{BE7B54FA-6EEC-4127-A7E3-A04426A49EDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE7B54FA-6EEC-4127-A7E3-A04426A49EDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE7B54FA-6EEC-4127-A7E3-A04426A49EDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6CA5CFE-4957-4422-9D4E-0E6329C099F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6CA5CFE-4957-4422-9D4E-0E6329C099F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6CA5CFE-4957-4422-9D4E-0E6329C099F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6CA5CFE-4957-4422-9D4E-0E6329C099F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

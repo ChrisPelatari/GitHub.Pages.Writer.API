@@ -1,0 +1,88 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/chris/Documents/GitHub/GitHub.Pages.Writer.API/GitHub.Pages.Writer.API/GitHub.Pages.Writer.API.csproj": {}
+  },
+  "projects": {
+    "/Users/chris/Documents/GitHub/GitHub.Pages.Writer.API/GitHub.Pages.Writer.API/GitHub.Pages.Writer.API.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/chris/Documents/GitHub/GitHub.Pages.Writer.API/GitHub.Pages.Writer.API/GitHub.Pages.Writer.API.csproj",
+        "projectName": "GitHub.Pages.Writer.API",
+        "projectPath": "/Users/chris/Documents/GitHub/GitHub.Pages.Writer.API/GitHub.Pages.Writer.API/GitHub.Pages.Writer.API.csproj",
+        "packagesPath": "/Users/chris/.nuget/packages/",
+        "outputPath": "/Users/chris/Documents/GitHub/GitHub.Pages.Writer.API/GitHub.Pages.Writer.API/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/chris/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "FluentAssertions": {
+              "target": "Package",
+              "version": "[6.8.0, )"
+            },
+            "Microsoft.TestPlatform.TestHost": {
+              "target": "Package",
+              "version": "[17.4.0, )"
+            },
+            "WilderMinds.MetaWeblog": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.4.2, )"
+            },
+            "xunit.runner.visualstudio": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.4.5, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.100/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
