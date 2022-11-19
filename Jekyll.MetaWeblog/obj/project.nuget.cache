@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "05OIdLTMzxslcXDrMmKmVEuNVoHizxpwAar1hOXFzvRtMUkl7sQKIxm0xeuiLyKgCt5c0cvEWloLs90/M9K04w==",
+  "dgSpecHash": "Cnvs2w/j+N8mhyASR/EIE4JNiX+tPbhPyRhvEf2uIo2x6QXJIMtlaxdbYqj6WstU0ne2P+wn0bcuyXWCz7+wFQ==",
   "success": true,
-  "projectFilePath": "/Users/chris/Documents/GitHub/Jekyll.MetaWeblog/Jekyll.MetaWeblog/Jekyll.MetaWeblog.csproj",
+  "projectFilePath": "/Users/chris/Documents/GitHub/GitHub.Pages.Writer.API/Jekyll.MetaWeblog/GitHub.Pages.Writer.API.csproj",
   "expectedPackageFiles": [
     "/Users/chris/.nuget/packages/fluentassertions/6.8.0/fluentassertions.6.8.0.nupkg.sha512",
     "/Users/chris/.nuget/packages/microsoft.aspnetcore.http.abstractions/2.0.0/microsoft.aspnetcore.http.abstractions.2.0.0.nupkg.sha512",

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/chris/Documents/GitHub/Jekyll.MetaWeblog/Jekyll.MetaWeblog/Jekyll.MetaWeblog.csproj": {}
+    "/Users/chris/Documents/GitHub/GitHub.Pages.Writer.API/Jekyll.MetaWeblog/Jekyll.MetaWeblog.csproj": {}
   },
   "projects": {
-    "/Users/chris/Documents/GitHub/Jekyll.MetaWeblog/Jekyll.MetaWeblog/Jekyll.MetaWeblog.csproj": {
+    "/Users/chris/Documents/GitHub/GitHub.Pages.Writer.API/Jekyll.MetaWeblog/Jekyll.MetaWeblog.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/chris/Documents/GitHub/Jekyll.MetaWeblog/Jekyll.MetaWeblog/Jekyll.MetaWeblog.csproj",
+        "projectUniqueName": "/Users/chris/Documents/GitHub/GitHub.Pages.Writer.API/Jekyll.MetaWeblog/Jekyll.MetaWeblog.csproj",
         "projectName": "Jekyll.MetaWeblog",
-        "projectPath": "/Users/chris/Documents/GitHub/Jekyll.MetaWeblog/Jekyll.MetaWeblog/Jekyll.MetaWeblog.csproj",
+        "projectPath": "/Users/chris/Documents/GitHub/GitHub.Pages.Writer.API/Jekyll.MetaWeblog/Jekyll.MetaWeblog.csproj",
         "packagesPath": "/Users/chris/.nuget/packages/",
-        "outputPath": "/Users/chris/Documents/GitHub/Jekyll.MetaWeblog/Jekyll.MetaWeblog/obj/",
+        "outputPath": "/Users/chris/Documents/GitHub/GitHub.Pages.Writer.API/Jekyll.MetaWeblog/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/chris/.nuget/NuGet/NuGet.Config"

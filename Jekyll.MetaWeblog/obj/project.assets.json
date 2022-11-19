@@ -5720,11 +5720,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/chris/Documents/GitHub/Jekyll.MetaWeblog/Jekyll.MetaWeblog/Jekyll.MetaWeblog.csproj",
-      "projectName": "Jekyll.MetaWeblog",
-      "projectPath": "/Users/chris/Documents/GitHub/Jekyll.MetaWeblog/Jekyll.MetaWeblog/Jekyll.MetaWeblog.csproj",
+      "projectUniqueName": "/Users/chris/Documents/GitHub/GitHub.Pages.Writer.API/Jekyll.MetaWeblog/GitHub.Pages.Writer.API.csproj",
+      "projectName": "GitHub.Pages.Writer.API",
+      "projectPath": "/Users/chris/Documents/GitHub/GitHub.Pages.Writer.API/Jekyll.MetaWeblog/GitHub.Pages.Writer.API.csproj",
       "packagesPath": "/Users/chris/.nuget/packages/",
-      "outputPath": "/Users/chris/Documents/GitHub/Jekyll.MetaWeblog/Jekyll.MetaWeblog/obj/",
+      "outputPath": "/Users/chris/Documents/GitHub/GitHub.Pages.Writer.API/Jekyll.MetaWeblog/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/chris/.nuget/NuGet/NuGet.Config"

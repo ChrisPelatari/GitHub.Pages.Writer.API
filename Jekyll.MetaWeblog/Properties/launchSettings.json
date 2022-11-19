@@ -9,19 +9,18 @@
     }
   },
   "profiles": {
-    "Jekyll.MetaWeblog": {
-      "commandName": "Project",
-      "launchBrowser": true,
-      "launchUrl": "metablog",
-      "applicationUrl": "https://localhost:7043;http://localhost:5168",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
-    },
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
       "launchUrl": "metablog",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "GitHub.Pages.Writer.API": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "applicationUrl": "https://localhost:5001;http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
