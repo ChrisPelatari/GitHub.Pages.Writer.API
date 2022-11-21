@@ -9,7 +9,14 @@ namespace GitHub.Pages.Writer.API.Services {
         public IConfiguration Config { get; }
 
         public MediaObjectInfo SaveMedia(MediaObject mediaObject) {
-            throw new NotImplementedException();
+            var fileName = $"{Config["local:folder"]}/{Config["local:media"]}/{mediaObject.name}";
+
+            if (File.Exists(fileName)) 
+                File.Delete(fileName);
+
+            File.WriteAllBytes(fileName, Convert.FromBase64String(mediaObject.bits));
+
+            return new MediaObjectInfo { url = $"{Config["blog:url"]}/{Config["local:media"]}/{mediaObject.name}" };
         }
     }
 }
