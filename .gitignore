@@ -7,3 +7,4 @@ GitHub.Pages.Writer.API/bin/
 GitHub.Pages.Writer.API/obj/
 .vscode/
 .vs/
+.DS_Store
