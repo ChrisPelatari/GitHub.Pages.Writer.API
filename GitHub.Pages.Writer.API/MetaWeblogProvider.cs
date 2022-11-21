@@ -1,16 +1,19 @@
-﻿using System;
+﻿using GitHub.Pages.Writer.API.Services;
+using System;
 using WilderMinds.MetaWeblog;
 
 namespace GitHub.Pages.Writer.API
 {
     public class MetaWeblogProvider : IMetaWeblogProvider
     {
-        public MetaWeblogProvider(IConfiguration config)
+        public MetaWeblogProvider(IConfiguration config, IFileStorage storage)
         {
             Config = config;
+            Storage = storage;
         }
 
         public IConfiguration Config { get; }
+        public IFileStorage Storage { get; }
 
         public Task<int> AddCategoryAsync(string key, string username, string password, NewCategory category)
         {
@@ -108,7 +111,11 @@ namespace GitHub.Pages.Writer.API
 
         public async Task<MediaObjectInfo> NewMediaObjectAsync(string blogid, string username, string password, MediaObject mediaObject)
         {
-            return await Task.FromResult<MediaObjectInfo>(new MediaObjectInfo { url = "https://" });
+            //TODO: save mediaObject.bits to disk
+            var image = $"{Storage.SaveMedia(mediaObject).url}";
+            //TODO: return url to local jekyll install
+            var url = $"{Config["blog:url"]}/assets/images/{image}";
+            return await Task.FromResult<MediaObjectInfo>(new MediaObjectInfo { url = url });
         }
     }
 }

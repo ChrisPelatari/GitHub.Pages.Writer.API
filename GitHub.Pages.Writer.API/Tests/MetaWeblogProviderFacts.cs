@@ -2,6 +2,8 @@
 using Xunit;
 using FluentAssertions;
 using WilderMinds.MetaWeblog;
+using Moq;
+using GitHub.Pages.Writer.API.Services;
 
 namespace GitHub.Pages.Writer.API.Tests
 {
@@ -10,6 +12,7 @@ namespace GitHub.Pages.Writer.API.Tests
         readonly TestSetup _testSetup;
         readonly ServiceProvider _serviceProvider;
         readonly IConfiguration? Config;
+        readonly Mock<IFileStorage> Storage;
         readonly MetaWeblogProvider metaWeblog;
 
         public MetaWeblogProviderFacts(TestSetup testSetup)
@@ -17,7 +20,8 @@ namespace GitHub.Pages.Writer.API.Tests
             _testSetup = testSetup;
             _serviceProvider = testSetup.ServiceProvider;
             Config = _serviceProvider.GetService<IConfiguration>();
-            metaWeblog = new(Config);
+            Storage = new();
+            metaWeblog = new(Config, Storage.Object);
         }
 
         public class GetUserInfo : MetaWeblogProviderFacts {
@@ -33,7 +37,7 @@ namespace GitHub.Pages.Writer.API.Tests
                 userinfo.userid.Should().Be("ChrisPelatari");
                 userinfo.firstname.Should().Be("Chris");
                 userinfo.lastname.Should().Be("Pelatari");
-                userinfo.url.Should().Be("https://localhost:4000");
+                userinfo.url.Should().Be("http://localhost:4000");
             }
         }
 
@@ -50,7 +54,7 @@ namespace GitHub.Pages.Writer.API.Tests
                 bloginfo[0].Should().NotBeNull();
                 bloginfo[0].blogid.Should().Be("1");
                 bloginfo[0].blogName.Should().Be("Blue Fenix Productions");
-                bloginfo[0].url.Should().Be("https://localhost:4000");
+                bloginfo[0].url.Should().Be("http://localhost:4000");
             }
         }
 
@@ -73,13 +77,19 @@ namespace GitHub.Pages.Writer.API.Tests
             public NewMediaObject(TestSetup testSetup) : base(testSetup) {
             }
 
-
             [Fact]
-            public async Task should_return_MediaObjectInfo() {
+             public async Task should_return_MediaObjectInfo() {
+                //arrange
+                Storage.Setup(i => i.SaveMedia(It.IsAny<MediaObject>())).Returns(new MediaObjectInfo { url = $"{Config["blog:url"]}/assets/images/picture.png" });
+
+                //act
                 var info = await metaWeblog.NewMediaObjectAsync("1", "ChrisPelatari", "", new MediaObject { name = "picture.png", type = "image/png", bits = "bits" });
 
+                //assert
                 info.Should().NotBeNull();
-                info.url.Should().StartWith("https://");
+                info.url.Should().StartWith(Config["blog:url"]);
+                info.url.Should().Contain("assets/images");
+                info.url.Should().EndWith("picture.png");
             }
         }
     }
