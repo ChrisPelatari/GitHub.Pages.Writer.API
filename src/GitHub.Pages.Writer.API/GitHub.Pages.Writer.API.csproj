@@ -24,11 +24,6 @@
     <None Remove="YamlDotNet" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\README.md">
-      <Link>README.md</Link>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Moq" Version="4.18.2" />
     <PackageReference Include="WilderMinds.MetaWeblog" Version="5.0.0" />
     <PackageReference Include="xunit" Version="2.4.2" />
