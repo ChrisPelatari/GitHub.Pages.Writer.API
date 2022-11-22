@@ -8,3 +8,5 @@ GitHub.Pages.Writer.API/obj/
 .vscode/
 .vs/
 .DS_Store
+src/GitHub.Pages.Writer.API/bin/
+src/GitHub.Pages.Writer.API/obj/
