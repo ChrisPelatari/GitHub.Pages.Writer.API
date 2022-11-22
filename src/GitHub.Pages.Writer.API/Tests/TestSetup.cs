@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
+using WilderMinds.MetaWeblog;
 
 namespace GitHub.Pages.Writer.API.Tests
 {
@@ -16,7 +17,7 @@ namespace GitHub.Pages.Writer.API.Tests
                      reloadOnChange: true)
                .Build();
             serviceCollection.AddSingleton<IConfiguration>(configuration);
-            serviceCollection.AddTransient<MetaWeblogProvider, MetaWeblogProvider>();
+            serviceCollection.AddMetaWeblog<MetaWeblogProvider>();
 
             ServiceProvider = serviceCollection.BuildServiceProvider();
         }
