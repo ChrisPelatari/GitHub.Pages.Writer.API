@@ -9,7 +9,6 @@ namespace GitHub.Pages.Writer.API.Tests
 {
     public class MetaWeblogProviderFacts : IClassFixture<TestSetup>
     {
-        readonly TestSetup _testSetup;
         readonly ServiceProvider _serviceProvider;
         readonly IConfiguration? Config;
         readonly Mock<IFileStorage> Storage;
@@ -17,7 +16,6 @@ namespace GitHub.Pages.Writer.API.Tests
 
         public MetaWeblogProviderFacts(TestSetup testSetup)
         {
-            _testSetup = testSetup;
             _serviceProvider = testSetup.ServiceProvider;
             Config = _serviceProvider.GetService<IConfiguration>();
             Storage = new();
