@@ -1,4 +1,5 @@
-﻿using WilderMinds.MetaWeblog;
+﻿using GitHub.Pages.Writer.API.Models;
+using WilderMinds.MetaWeblog;
 
 namespace GitHub.Pages.Writer.API.Services {
     public class JekyllFileStorage : IFileStorage {
@@ -7,6 +8,10 @@ namespace GitHub.Pages.Writer.API.Services {
         }
 
         public IConfiguration Config { get; }
+
+        public int AddCategory(Category category) {
+            throw new NotImplementedException();
+        }
 
         public MediaObjectInfo SaveMedia(MediaObject mediaObject) {
             var fileName = $"{Config["local:folder"]}/{Config["local:media"]}/{mediaObject.name}";

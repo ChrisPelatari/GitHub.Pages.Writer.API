@@ -1,5 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using WilderMinds.MetaWeblog;
 
 namespace GitHub.Pages.Writer.API.Tests
@@ -18,6 +20,7 @@ namespace GitHub.Pages.Writer.API.Tests
                .Build();
             serviceCollection.AddSingleton<IConfiguration>(configuration);
             serviceCollection.AddMetaWeblog<MetaWeblogProvider>();
+            serviceCollection.AddDbContext<BlogDbContext>();
 
             ServiceProvider = serviceCollection.BuildServiceProvider();
         }

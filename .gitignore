@@ -10,3 +10,7 @@ GitHub.Pages.Writer.API/obj/
 .DS_Store
 src/GitHub.Pages.Writer.API/bin/
 src/GitHub.Pages.Writer.API/obj/
+src/GitHub.Pages.Writer.API.Tests/obj/
+src/GitHub.Pages.Writer.API.Tests/bin/
+src/GitHub.Pages.Writer.API/Data/Blog.db-shm
+src/GitHub.Pages.Writer.API/Data/Blog.db-wal

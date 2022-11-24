@@ -1,4 +1,5 @@
-﻿using GitHub.Pages.Writer.API.Services;
+﻿using GitHub.Pages.Writer.API.Models;
+using GitHub.Pages.Writer.API.Services;
 using System;
 using WilderMinds.MetaWeblog;
 
@@ -6,18 +7,22 @@ namespace GitHub.Pages.Writer.API
 {
     public class MetaWeblogProvider : IMetaWeblogProvider
     {
-        public MetaWeblogProvider(IConfiguration config, IFileStorage storage)
+        private readonly BlogDbContext db;
+
+        public MetaWeblogProvider(IConfiguration config, IFileStorage storage, BlogDbContext db)
         {
             Config = config;
             Storage = storage;
+            this.db = db;
         }
 
         public IConfiguration Config { get; }
         public IFileStorage Storage { get; }
 
-        public Task<int> AddCategoryAsync(string key, string username, string password, NewCategory category)
+        public async Task<int> AddCategoryAsync(string key, string username, string password, NewCategory category)
         {
-            throw new NotImplementedException();
+            db.Categories.Add(new Category { Name = category.name, Description= category.description, ParentID = category.parent_id, Slug = category.slug });
+            return await db.SaveChangesAsync();
         }
 
         public Task<string> AddPageAsync(string blogid, string username, string password, Page page, bool publish)
