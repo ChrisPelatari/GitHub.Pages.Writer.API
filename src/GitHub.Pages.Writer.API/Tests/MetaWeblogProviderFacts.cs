@@ -1,5 +1,4 @@
-﻿using System;
-using Xunit;
+﻿using Xunit;
 using FluentAssertions;
 using WilderMinds.MetaWeblog;
 using Moq;
@@ -7,7 +6,7 @@ using GitHub.Pages.Writer.API.Services;
 
 namespace GitHub.Pages.Writer.API.Tests
 {
-    public class MetaWeblogProviderFacts : IClassFixture<TestSetup>
+  public class MetaWeblogProviderFacts : IClassFixture<TestSetup>
     {
         readonly ServiceProvider _serviceProvider;
         readonly IConfiguration? Config;
