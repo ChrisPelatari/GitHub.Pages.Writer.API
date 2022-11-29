@@ -9,10 +9,10 @@ using Microsoft.VisualStudio.TestPlatform.TestHost;
 
 namespace GitHub.Pages.Writer.API.Tests {
     public partial class MetaWeblogProviderFacts : IClassFixture<WebApplicationFactory<Program>>, IDisposable {
-        IConfiguration Config;
+        protected IConfiguration Config;
         TestSetup setup = new();
-        readonly Mock<IFileStorage> Storage = new();
-        MetaWeblogProvider metaWeblog;
+        protected Mock<IFileStorage> Storage = new();
+        protected MetaWeblogProvider metaWeblog;
         BlogDbContext context;
         SqliteConnection connection = new SqliteConnection("Filename=:memory:");
 

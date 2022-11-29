@@ -4,6 +4,7 @@ using WilderMinds.MetaWeblog;
 namespace GitHub.Pages.Writer.API.Services {
     public interface IFileStorage {
         int AddCategory(Category category);
-        MediaObjectInfo SaveMedia(MediaObject mediaObject);
+                Category[] GetCategories (string blogId, string username, string password);
+                MediaObjectInfo SaveMedia(MediaObject mediaObject);
     }
 }
