@@ -1,11 +1,8 @@
 ﻿using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.VisualStudio.TestPlatform.TestHost;
-using Moq;
-using WilderMinds.MetaWeblog;
 
-namespace GitHub.Pages.Writer.API.Tests
-{
+namespace GitHub.Pages.Writer.API.Tests {
     public class NewMediaObject : MetaWeblogProviderFacts
     {
         public NewMediaObject(WebApplicationFactory<Program> factory) : base(factory)

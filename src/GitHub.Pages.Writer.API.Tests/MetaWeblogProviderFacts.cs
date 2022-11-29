@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.VisualStudio.TestPlatform.TestHost;
 
 namespace GitHub.Pages.Writer.API.Tests {
-    public partial class MetaWeblogProviderFacts : IClassFixture<WebApplicationFactory<Program>>, IDisposable {
+    public class MetaWeblogProviderFacts : IClassFixture<WebApplicationFactory<Program>>, IDisposable {
         protected IConfiguration Config;
         TestSetup setup = new();
         protected Mock<IFileStorage> Storage = new();

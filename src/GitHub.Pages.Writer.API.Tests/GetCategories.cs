@@ -15,11 +15,6 @@ namespace GitHub.Pages.Writer.API.Tests
         public async Task Should_return_categories()
         {
             //arrange
-            Storage.Setup(c => c.GetCategories(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(new[]
-            {
-                new Category{Name = "Category1", Id = 1, Slug = "slug1"},
-                new Category{Name = "Category2", Id = 2, Slug = "slug2"}
-            });
 
             //act
             var cats = await metaWeblog.GetCategoriesAsync("blog", "username", "password");

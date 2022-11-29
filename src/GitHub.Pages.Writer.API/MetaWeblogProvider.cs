@@ -69,8 +69,9 @@ namespace GitHub.Pages.Writer.API
             return await Task.FromResult(author);
         }
 
-        public Task<CategoryInfo[]> GetCategoriesAsync(string blogid, string username, string password)
+        public async Task<CategoryInfo[]> GetCategoriesAsync(string blogid, string username, string password)
         {
+            //TODO: add automapper
             throw new NotImplementedException();
         }
 
