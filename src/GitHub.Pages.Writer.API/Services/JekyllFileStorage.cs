@@ -24,7 +24,7 @@ namespace GitHub.Pages.Writer.API.Services {
             var fileName = $"{Config["local:folder"]}/{Config["local:media"]}/{mediaObject.name}";
 
             if (File.Exists(fileName))
-                File.Delete(fileName);
+                fileName = $"{Config["local:folder"]}/{Config["local:media"]}/{Guid.NewGuid().ToString()}-{mediaObject.name}";
 
             File.WriteAllBytes(fileName, Convert.FromBase64String(mediaObject.bits));
 
