@@ -71,8 +71,8 @@ namespace GitHub.Pages.Writer.API
 
         public async Task<CategoryInfo[]> GetCategoriesAsync(string blogid, string username, string password)
         {
-            //TODO: add automapper
-            throw new NotImplementedException();
+            //implicit conversion from Category to CategoryInfo
+            return await Task.FromResult(db.Categories.ToArray().Select(c => (CategoryInfo)c).ToArray());
         }
 
         public Task<Page> GetPageAsync(string blogid, string pageid, string username, string password)

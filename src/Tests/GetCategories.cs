@@ -15,6 +15,18 @@ namespace GitHub.Pages.Writer.API.Tests
         public async Task Should_return_categories()
         {
             //arrange
+            var categories = new[]
+            {
+                new Category { Name = "Category1",
+                 Description = "Description1",
+                 Slug = "category1" },
+                new Category { Name = "Category2",
+                 Description = "Description2",
+                 Slug = "category2" }
+            };
+
+            context.Categories.AddRange(categories);
+            context.SaveChanges();
 
             //act
             var cats = await metaWeblog.GetCategoriesAsync("blog", "username", "password");

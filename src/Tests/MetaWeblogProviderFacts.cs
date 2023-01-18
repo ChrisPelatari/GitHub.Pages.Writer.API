@@ -13,7 +13,7 @@ namespace GitHub.Pages.Writer.API.Tests {
         TestSetup setup = new();
         protected Mock<IFileStorage> Storage = new();
         protected MetaWeblogProvider metaWeblog;
-        BlogDbContext context;
+        protected BlogDbContext context;
         SqliteConnection connection = new SqliteConnection("Filename=:memory:");
 
         public MetaWeblogProviderFacts(WebApplicationFactory<Program> factory) {

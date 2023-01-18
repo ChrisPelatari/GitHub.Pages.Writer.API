@@ -4,7 +4,7 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <AssemblyName>Jekyll.MetaWeblog</AssemblyName>
+    <AssemblyName>GitHub.Pages.Writer.API</AssemblyName>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -12,7 +12,7 @@
     <AssemblyName>GitHub.Pages.Writer.API</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <AssemblyName>Jekyll.MetaWeblog</AssemblyName>
+    <AssemblyName>GitHub.Pages.Writer.API</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="WilderMinds.MetaWeblog" />

@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GitHub.Pages.Writer.API\GitHub.Pages.Writer.API.csproj" />
+    <ProjectReference Include="..\API\GitHub.Pages.Writer.API.csproj" />
   </ItemGroup>
 
 </Project>
