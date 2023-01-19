@@ -89,7 +89,12 @@ namespace GitHub.Pages.Writer.API
 
         public Task<bool> DeletePostAsync(string key, string postid, string username, string password, bool publish)
         {
-            throw new NotImplementedException();
+            //delete the jekyll markdown file
+            var fileName = $"{Config["local:folder"]}/_posts/{postid}.md";
+            if (File.Exists(fileName))
+                File.Delete(fileName);
+
+            return Task.FromResult(true);
         }
 
         public Task<bool> EditPageAsync(string blogid, string pageid, string username, string password, Page page, bool publish)
