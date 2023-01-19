@@ -53,12 +53,38 @@ namespace GitHub.Pages.Writer.API
 
         public Task<string> AddPostAsync(string blogid, string username, string password, Post post, bool publish)
         {
-            throw new NotImplementedException();
+            //create a jekyll markdown file with the following front matter:
+            //---
+            //layout: post
+            //title: "Test Post"
+            //date: 2021-08-01 12:00:00 -0400
+            //categories: Test Category
+            //---
+            //Test Description
+            var fileName = $"{Config["local:folder"]}/{post.dateCreated.Year}-{post.dateCreated.Month}-{post.dateCreated.Day}-{post.title}.md";
+            var frontMatter = $"---\nlayout: post\ntitle: \"{post.title}\"\ndate: {post.dateCreated.ToString("yyyy-MM-dd HH:mm:ss zzz")}";
+            if (post.categories != null && post.categories.Length > 0)
+                frontMatter += $"\ncategories: {string.Join(", ", post.categories)}";
+            frontMatter += $"\n---\n{post.description}";
+
+            if (File.Exists(fileName))
+                File.Delete(fileName);
+
+            File.WriteAllText(fileName, frontMatter);
+
+            return Task.FromResult(
+                $"{Config["blog:url"]}/{string.Join("/", post.categories)}/{post.dateCreated.Year}/{post.dateCreated.Month}/{post.dateCreated.Day}/{post.title}.html"
+            );
         }
 
         public Task<bool> DeletePageAsync(string blogid, string username, string password, string pageid)
         {
-            throw new NotImplementedException();
+            //delete the jekyll markdown file
+            var fileName = $"{Config["local:folder"]}/{pageid}.md";
+            if (File.Exists(fileName))
+                File.Delete(fileName);
+
+            return Task.FromResult(true);
         }
 
         public Task<bool> DeletePostAsync(string key, string postid, string username, string password, bool publish)
