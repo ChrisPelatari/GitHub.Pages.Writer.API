@@ -13,7 +13,9 @@ namespace GitHub.Pages.Writer.API.Services {
         public IConfiguration Config { get; }
 
         public int AddCategory(Category category) {
-            throw new NotImplementedException();
+            db.Categories.Add(category);
+            db.SaveChanges();
+            return category.Id;  
         }
 
         public async Task<Category[]> GetCategories(string blogId, string username, string password) {
