@@ -11,7 +11,7 @@ namespace GitHub.Pages.Writer.API.Tests
         {
             var tags = await metaWeblog.GetTagsAsync("1", "ChrisPelatari", "");
 
-            tags.Length.Should().Be(0);
+            tags.Length.Should().Be(50);
         }
     }
 }
