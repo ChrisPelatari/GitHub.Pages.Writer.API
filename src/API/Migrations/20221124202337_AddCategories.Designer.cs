@@ -26,7 +26,6 @@ namespace GitHub.Pages.Writer.API.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
@@ -38,7 +37,6 @@ namespace GitHub.Pages.Writer.API.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Slug")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
