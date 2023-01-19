@@ -99,7 +99,26 @@ namespace GitHub.Pages.Writer.API
 
         public Task<bool> EditPageAsync(string blogid, string pageid, string username, string password, Page page, bool publish)
         {
-            throw new NotImplementedException();
+            //update the jekyll markdown file with the following front matter:
+            //---
+            //layout: page
+            //title: "Test Page"
+            //date: 2021-08-01 12:00:00 -0400
+            //categories: Test Category
+            //---
+            //Test Description
+            var fileName = $"{Config["local:folder"]}/{pageid}.md";
+            var frontMatter = $"---\nlayout: page\ntitle: \"{page.title}\"\ndate: {page.dateCreated.ToString("yyyy-MM-dd HH:mm:ss zzz")}";
+            if (page.categories != null && page.categories.Length > 0)
+                frontMatter += $"\ncategories: {string.Join(", ", page.categories)}";
+            frontMatter += $"\n---\n{page.description}";
+
+            if (File.Exists(fileName))
+                File.Delete(fileName);
+
+            File.WriteAllText(fileName, frontMatter);
+
+            return Task.FromResult(true);
         }
 
         public Task<bool> EditPostAsync(string postid, string username, string password, Post post, bool publish)
