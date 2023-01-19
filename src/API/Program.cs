@@ -18,3 +18,5 @@ app.UseHttpsRedirection();
 app.UseMetaWeblog("/metablog");
 
 app.Run();
+
+public partial class Program{}
