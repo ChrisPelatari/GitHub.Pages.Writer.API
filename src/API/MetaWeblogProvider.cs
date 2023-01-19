@@ -1,6 +1,7 @@
 ﻿using GitHub.Pages.Writer.API.Models;
 using GitHub.Pages.Writer.API.Services;
 using System;
+using System.Globalization;
 using WilderMinds.MetaWeblog;
 
 namespace GitHub.Pages.Writer.API
@@ -167,27 +168,126 @@ namespace GitHub.Pages.Writer.API
 
         public Task<Page> GetPageAsync(string blogid, string pageid, string username, string password)
         {
-            throw new NotImplementedException();
+            //get the jekyll markdown file and parse the front matter
+            var fileName = $"{Config["local:folder"]}/{pageid}.md";
+            if (!File.Exists(fileName))
+                return Task.FromResult<Page>(new Page{ 
+                    title = "Not Found",
+                    description = "The requested page was not found."
+                });
+
+            var frontMatter = File.ReadAllText(fileName);
+            var page = new Page();
+            page.title = frontMatter.Substring(frontMatter.IndexOf("title: \"") + 8, frontMatter.IndexOf("\"", frontMatter.IndexOf("title: \"") + 8) - frontMatter.IndexOf("title: \"") - 8);
+
+            var categories = frontMatter.Substring(frontMatter.IndexOf("categories: ") + 12);
+            if (categories.Contains("\n"))
+                categories = categories.Substring(0, categories.IndexOf("\n"));
+            page.categories = categories.Split(", ");
+
+            page.description = frontMatter.Substring(frontMatter.IndexOf("---\n", frontMatter.IndexOf("---\n") + 4));
+
+            return Task.FromResult(page);
         }
 
         public Task<Page[]> GetPagesAsync(string blogid, string username, string password, int numPages)
         {
-            throw new NotImplementedException();
+            //get all the jekyll markdown files and parse the front matter
+            var files = Directory.GetFiles(Config["local:folder"], "*.md");
+            var pages = new List<Page>();
+
+            foreach (var file in files)
+            {
+                var frontMatter = File.ReadAllText(file);
+                var page = new Page();
+                page.title = frontMatter.Substring(frontMatter.IndexOf("title: \"") + 8, frontMatter.IndexOf("\"", frontMatter.IndexOf("title: \"") + 8) - frontMatter.IndexOf("title: \"") - 8);
+
+                var categories = frontMatter.Substring(frontMatter.IndexOf("categories: ") + 12);
+                if (categories.Contains("\n"))
+                    categories = categories.Substring(0, categories.IndexOf("\n"));
+                page.categories = categories.Split(", ");
+
+                page.description = frontMatter.Substring(frontMatter.IndexOf("---\n", frontMatter.IndexOf("---\n") + 4));
+
+                pages.Add(page);
+            }
+
+            return Task.FromResult(pages.ToArray());
         }
 
         public Task<Post> GetPostAsync(string postid, string username, string password)
         {
-            throw new NotImplementedException();
+            //get the jekyll markdown file and parse the front matter
+            var fileName = $"{Config["local:folder"]}/_posts/{postid}.md";
+            if (!File.Exists(fileName))
+                return Task.FromResult<Post>(new Post
+                {
+                    title = "Not Found",
+                    description = "The requested post was not found."
+                });
+
+            var frontMatter = File.ReadAllText(fileName);
+
+            var post = new Post();
+            post.title = frontMatter.Substring(frontMatter.IndexOf("title: \"") + 8, frontMatter.IndexOf("\"", frontMatter.IndexOf("title: \"") + 8) - frontMatter.IndexOf("title: \"") - 8);
+
+            var categories = frontMatter.Substring(frontMatter.IndexOf("categories: ") + 12);
+            if (categories.Contains("\n"))
+                categories = categories.Substring(0, categories.IndexOf("\n"));
+            post.categories = categories.Split(", ");
+
+            post.description = frontMatter.Substring(frontMatter.IndexOf("---\n", frontMatter.IndexOf("---\n") + 4));
+
+            return Task.FromResult(post);
         }
 
         public Task<Post[]> GetRecentPostsAsync(string blogid, string username, string password, int numberOfPosts)
         {
-            throw new NotImplementedException();
+            //get all the jekyll markdown files and parse the front matter
+            var files = Directory.GetFiles($"{Config["local:folder"]}/_posts", "*.md");
+            var posts = new List<Post>();
+
+            foreach (var file in files)
+            {
+                var frontMatter = File.ReadAllText(file);
+                var post = new Post();
+                post.title = frontMatter.Substring(frontMatter.IndexOf("title: \"") + 8, frontMatter.IndexOf("\"", frontMatter.IndexOf("title: \"") + 8) - frontMatter.IndexOf("title: \"") - 8);
+
+                var categories = frontMatter.Substring(frontMatter.IndexOf("categories: ") + 12);
+                if (categories.Contains("\n"))
+                    categories = categories.Substring(0, categories.IndexOf("\n"));
+                post.categories = categories.Split(", ");
+
+                post.description = frontMatter.Substring(frontMatter.IndexOf("---\n", frontMatter.IndexOf("---\n") + 4));
+
+                posts.Add(post);
+            }
+
+            return Task.FromResult(posts.ToArray());
         }
 
         public Task<Tag[]> GetTagsAsync(string blogid, string username, string password)
         {
-            throw new NotImplementedException();
+            //get all the jekyll markdown files and parse the front matter
+            var files = Directory.GetFiles($"{Config["local:folder"]}/_posts", "*.md");
+            var tags = new List<Tag>();
+
+            foreach (var file in files)
+            {
+                var frontMatter = File.ReadAllText(file);
+                var categories = frontMatter.Substring(frontMatter.IndexOf("categories: ") + 12);
+                if (categories.Contains("\n"))
+                    categories = categories.Substring(0, categories.IndexOf("\n"));
+                var categoriesArray = categories.Split(", ");
+
+                foreach (var category in categoriesArray)
+                {
+                    if (!tags.Any(t => t.name == category))
+                        tags.Add(new Tag { name = category });
+                }
+            }
+
+            return Task.FromResult(tags.ToArray());
         }
 
         public Task<UserInfo> GetUserInfoAsync(string key, string username, string password)
