@@ -23,6 +23,6 @@ public class AddPage : MetaWeblogProviderFacts
 
         var result = await metaWeblog.AddPageAsync("1", "ChrisPelatari", "", page, true);
 
-        result.Should().Be("1");
+        result.Should().Be($"{Config["blog:url"]}/{page.title}.html");
     }
 }

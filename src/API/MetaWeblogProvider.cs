@@ -27,7 +27,28 @@ namespace GitHub.Pages.Writer.API
 
         public Task<string> AddPageAsync(string blogid, string username, string password, Page page, bool publish)
         {
-            throw new NotImplementedException();
+            //create a jekyll markdown file with the following front matter:
+            //---
+            //layout: page
+            //title: "Test Page"
+            //date: 2021-08-01 12:00:00 -0400
+            //categories: Test Category
+            //---
+            //Test Description
+            var fileName = $"{Config["local:folder"]}/{page.title}.md";
+            var frontMatter = $"---\nlayout: page\ntitle: \"{page.title}\"\ndate: {page.dateCreated.ToString("yyyy-MM-dd HH:mm:ss zzz")}";
+            if (page.categories != null && page.categories.Length > 0)
+                frontMatter += $"\ncategories: {string.Join(", ", page.categories)}";
+            frontMatter += $"\n---\n{page.description}";
+
+            if (File.Exists(fileName))
+                File.Delete(fileName);
+
+            File.WriteAllText(fileName, frontMatter);
+
+            return Task.FromResult(
+                $"{Config["blog:url"]}/{page.title}.html"
+            );
         }
 
         public Task<string> AddPostAsync(string blogid, string username, string password, Post post, bool publish)

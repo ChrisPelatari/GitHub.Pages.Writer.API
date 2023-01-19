@@ -15,6 +15,7 @@ namespace GitHub.Pages.Writer.API.Tests {
         protected MetaWeblogProvider metaWeblog;
         protected BlogDbContext context;
         SqliteConnection connection = new SqliteConnection("Filename=:memory:");
+        private WebApplicationFactory<Program> factory;
 
         public MetaWeblogProviderFacts(WebApplicationFactory<Program> factory) {
             connection.Open();
@@ -36,6 +37,7 @@ namespace GitHub.Pages.Writer.API.Tests {
             });
 
         }
+
         public WebApplicationFactory<Program> Factory { get; }
 
         public void Dispose() { 

@@ -33,9 +33,9 @@ namespace GitHub.Pages.Writer.API.Tests
 
             //assert
             cats.Should().NotBeNull();
-            cats.Length.Should().Be(2);
-            cats[0].title.Should().Be("Category1");
-            cats[1].title.Should().Be("Category2");
+            cats.Length.Should().Be(52);
+            cats[0].title.Should().Be("Programming");
+            cats.ToList().Last().title.Should().Be("Category2");
         }
     }
 }
