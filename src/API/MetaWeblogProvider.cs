@@ -62,15 +62,12 @@ namespace GitHub.Pages.Writer.API
             //categories: Test Category
             //---
             //Test Description
-            var fileName = $"{Config["local:folder"]}/_posts/{post.dateCreated.ToString("YY-MM-dd")}-{post.title}.md";
+            var fileName = $"{Config["local:folder"]}/_posts/{post.dateCreated.Year}-{post.dateCreated.ToString("MM-dd")}-{post.title}.md";
 
             var frontMatter = $"---\nlayout: post\ntitle: \"{post.title}\"\ndate: {post.dateCreated.ToString("yyyy-MM-dd HH:mm:ss zzz")}";
             if (post.categories != null && post.categories.Length > 0)
                 frontMatter += $"\ncategories: {string.Join(", ", post.categories)}";
             frontMatter += $"\n---\n{post.description}";
-
-            if (File.Exists(fileName))
-                File.Delete(fileName);
 
             File.WriteAllText(fileName, frontMatter);
 
@@ -115,9 +112,6 @@ namespace GitHub.Pages.Writer.API
                 frontMatter += $"\ncategories: {string.Join(", ", page.categories)}";
             frontMatter += $"\n---\n{page.description}";
 
-            if (File.Exists(fileName))
-                File.Delete(fileName);
-
             File.WriteAllText(fileName, frontMatter);
 
             return Task.FromResult(true);
@@ -138,9 +132,6 @@ namespace GitHub.Pages.Writer.API
             if (post.categories != null && post.categories.Length > 0)
                 frontMatter += $"\ncategories: {string.Join(", ", post.categories)}";
             frontMatter += $"\n---\n{post.description}";
-
-            if (File.Exists(fileName))
-                File.Delete(fileName);
 
             File.WriteAllText(fileName, frontMatter);
 
@@ -219,7 +210,7 @@ namespace GitHub.Pages.Writer.API
         public Task<Post> GetPostAsync(string postid, string username, string password)
         {
             //get the jekyll markdown file and parse the front matter
-            var fileName = $"{Config["local:folder"]}/_posts/{postid}.md";
+            var fileName = $"{Config["local:folder"]}_posts/{postid}.md";
             if (!File.Exists(fileName))
                 return Task.FromResult<Post>(new Post
                 {
@@ -237,12 +228,14 @@ namespace GitHub.Pages.Writer.API
                 categories = categories.Substring(0, categories.IndexOf("\n"));
             post.categories = categories.Split(", ");
 
-            post.description = frontMatter.Substring(frontMatter.IndexOf("---\n", frontMatter.IndexOf("---\n") + 4));
+            var description = frontMatter.Substring(frontMatter.IndexOf("---\n", frontMatter.IndexOf("---\n") + 4));
+
+            post.description = description.Replace("---\n", "");
 
             return Task.FromResult(post);
         }
 
-        public Task<Post[]> GetRecentPostsAsync(string blogid, string username, string password, int numberOfPosts)
+        public async Task<Post[]> GetRecentPostsAsync(string blogid, string username, string password, int numberOfPosts)
         {
             //get all the jekyll markdown files and parse the front matter
             var files = Directory.GetFiles($"{Config["local:folder"]}/_posts", "*.md");
@@ -250,21 +243,11 @@ namespace GitHub.Pages.Writer.API
 
             foreach (var file in files)
             {
-                var frontMatter = File.ReadAllText(file);
-                var post = new Post();
-                post.title = frontMatter.Substring(frontMatter.IndexOf("title: \"") + 8, frontMatter.IndexOf("\"", frontMatter.IndexOf("title: \"") + 8) - frontMatter.IndexOf("title: \"") - 8);
-
-                var categories = frontMatter.Substring(frontMatter.IndexOf("categories: ") + 12);
-                if (categories.Contains("\n"))
-                    categories = categories.Substring(0, categories.IndexOf("\n"));
-                post.categories = categories.Split(", ");
-
-                post.description = frontMatter.Substring(frontMatter.IndexOf("---\n", frontMatter.IndexOf("---\n") + 4));
-
+                var post = await GetPostAsync(file.Substring(file.LastIndexOf("/") + 1, file.LastIndexOf(".") - file.LastIndexOf("/") - 1), username, password);
                 posts.Add(post);
             }
 
-            return Task.FromResult(posts.ToArray());
+            return await Task.FromResult(posts.ToArray());
         }
 
         public Task<Tag[]> GetTagsAsync(string blogid, string username, string password)

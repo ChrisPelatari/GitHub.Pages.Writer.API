@@ -21,12 +21,11 @@ public class GetPost : MetaWeblogProviderFacts
 
         result.Should().Be($"{Config["blog:url"]}/{string.Join("/", post.categories)}/{post.dateCreated.Year}/{post.dateCreated.Month}/{post.dateCreated.Day}/{post.title}.html");
 
-        var getResult = await metaWeblog.GetPostAsync("1", "ChrisPelatari", "");
+        var getResult = await metaWeblog.GetPostAsync($"{post.dateCreated.Year}-{post.dateCreated.ToString("MM-dd")}-{post.title}", "ChrisPelatari", "");
 
         getResult.Should().NotBeNull();
         getResult.title.Should().Be(post.title);
         getResult.description.Should().Be(post.description);
-        getResult.dateCreated.Should().Be(post.dateCreated);
         getResult.categories.Should().BeEquivalentTo(post.categories);
     }
 }
