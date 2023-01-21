@@ -62,7 +62,11 @@ namespace GitHub.Pages.Writer.API
             //categories: Test Category
             //---
             //Test Description
-            var fileName = $"{Config["local:folder"]}/_posts/{post.dateCreated.Year}-{post.dateCreated.ToString("MM-dd")}-{post.title}.md";
+            if (post.dateCreated == DateTime.MinValue)
+                post.dateCreated = DateTime.Now;
+
+            var fileName = $"{Config["local:folder"]}_posts/{post.dateCreated.Year}-{post.dateCreated.ToString("MM-dd")}-{post.title}.md";
+
 
             var frontMatter = $"---\nlayout: post\ntitle: \"{post.title}\"\ndate: {post.dateCreated.ToString("yyyy-MM-dd HH:mm:ss zzz")}";
             if (post.categories != null && post.categories.Length > 0)
@@ -127,7 +131,10 @@ namespace GitHub.Pages.Writer.API
             //categories: Test Category
             //---
             //Test Description
-            var fileName = $"{Config["local:folder"]}/_posts/{postid}.md";
+            var postParts = postid.Split("/");
+            postParts = postParts.TakeLast(4).ToArray();
+
+            var fileName = $"{Config["local:folder"]}_posts/{postParts[0]}-{postParts[1]}-{postParts[2]}-{postParts.Last().Replace(".html", string.Empty)}.md";
             var frontMatter = $"---\nlayout: post\ntitle: \"{post.title}\"\ndate: {post.dateCreated.ToString("yyyy-MM-dd HH:mm:ss zzz")}";
             if (post.categories != null && post.categories.Length > 0)
                 frontMatter += $"\ncategories: {string.Join(", ", post.categories)}";
@@ -199,7 +206,7 @@ namespace GitHub.Pages.Writer.API
                     categories = categories.Substring(0, categories.IndexOf("\n"));
                 page.categories = categories.Split(", ");
 
-                page.description = frontMatter.Substring(frontMatter.IndexOf("---\n", frontMatter.IndexOf("---\n") + 4));
+                page.description = GetDescription(frontMatter).Replace("---\n", "");
 
                 pages.Add(page);
             }
@@ -207,13 +214,11 @@ namespace GitHub.Pages.Writer.API
             return Task.FromResult(pages.ToArray());
         }
 
-        public Task<Post> GetPostAsync(string postid, string username, string password)
-        {
+        public Task<Post> GetPostAsync(string postid, string username, string password) {
             //get the jekyll markdown file and parse the front matter
             var fileName = $"{Config["local:folder"]}_posts/{postid}.md";
             if (!File.Exists(fileName))
-                return Task.FromResult<Post>(new Post
-                {
+                return Task.FromResult<Post>(new Post {
                     title = "Not Found",
                     description = "The requested post was not found."
                 });
@@ -228,11 +233,15 @@ namespace GitHub.Pages.Writer.API
                 categories = categories.Substring(0, categories.IndexOf("\n"));
             post.categories = categories.Split(", ");
 
-            var description = frontMatter.Substring(frontMatter.IndexOf("---\n", frontMatter.IndexOf("---\n") + 4));
+            string description = GetDescription(frontMatter);
 
             post.description = description.Replace("---\n", "");
 
             return Task.FromResult(post);
+        }
+
+        private static string GetDescription(string frontMatter) {
+            return frontMatter.Substring(frontMatter.IndexOf("---\n", frontMatter.IndexOf("---\n") + 4));
         }
 
         public async Task<Post[]> GetRecentPostsAsync(string blogid, string username, string password, int numberOfPosts)

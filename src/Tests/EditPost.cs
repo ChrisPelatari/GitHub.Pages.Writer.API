@@ -9,9 +9,10 @@ public class EditPost : MetaWeblogProviderFacts
     [Fact]
     public async Task should_edit_post()
     {
+        var originalTitle = "Test Post";
         var post = new Post
         {
-            title = "Test Post",
+            title = originalTitle,
             description = "Test Description",
             dateCreated = DateTime.Now,
             categories = new string[] { "Test Category" }
@@ -29,5 +30,10 @@ public class EditPost : MetaWeblogProviderFacts
         var editResult = await metaWeblog.EditPostAsync("1", "ChrisPelatari", "", post, true);
 
         editResult.Should().BeTrue();
+
+        var getResult = await metaWeblog.GetPostAsync($"{post.dateCreated.Year}-{post.dateCreated.ToString("MM-dd")}-{originalTitle}", "ChrisPelatari", "");
+
+        getResult.Should().NotBeNull();
+        getResult.title.Should().Be(post.title);
     }
 }

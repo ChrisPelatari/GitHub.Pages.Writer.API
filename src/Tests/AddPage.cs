@@ -24,5 +24,9 @@ public class AddPage : MetaWeblogProviderFacts
         var result = await metaWeblog.AddPageAsync("1", "ChrisPelatari", "", page, true);
 
         result.Should().Be($"{Config["blog:url"]}/{page.title}.html");
+
+        var deleteResult = await metaWeblog.DeletePageAsync("Test Page", "ChrisPelatari", "", result);
+
+        deleteResult.Should().BeTrue();
     }
 }
