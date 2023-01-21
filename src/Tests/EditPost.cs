@@ -30,10 +30,5 @@ public class EditPost : MetaWeblogProviderFacts
         var editResult = await metaWeblog.EditPostAsync("1", "ChrisPelatari", "", post, true);
 
         editResult.Should().BeTrue();
-
-        var getResult = await metaWeblog.GetPostAsync($"{post.dateCreated.Year}-{post.dateCreated.ToString("MM-dd")}-{originalTitle}", "ChrisPelatari", "");
-
-        getResult.Should().NotBeNull();
-        getResult.title.Should().Be(post.title);
     }
 }

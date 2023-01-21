@@ -9,6 +9,7 @@ public class AddPost : MetaWeblogProviderFacts
     [Fact]
     public async Task should_add_post()
     {
+        //arrange
         var post = new Post
         {
             title = "Test Post",

@@ -36,7 +36,7 @@ namespace GitHub.Pages.Writer.API
             //categories: Test Category
             //---
             //Test Description
-            var fileName = $"{Config["local:folder"]}/{page.title}.md";
+            var fileName = Storage.AddPage(page.title);
             var frontMatter = $"---\nlayout: page\ntitle: \"{page.title}\"\ndate: {page.dateCreated.ToString("yyyy-MM-dd HH:mm:ss zzz")}";
             if (page.categories != null && page.categories.Length > 0)
                 frontMatter += $"\ncategories: {string.Join(", ", page.categories)}";
@@ -52,8 +52,7 @@ namespace GitHub.Pages.Writer.API
             );
         }
 
-        public Task<string> AddPostAsync(string blogid, string username, string password, Post post, bool publish)
-        {
+        public Task<string> AddPostAsync(string blogid, string username, string password, Post post, bool publish) {
             //create a jekyll markdown file with the following front matter:
             //---
             //layout: post
@@ -64,16 +63,14 @@ namespace GitHub.Pages.Writer.API
             //Test Description
             if (post.dateCreated == DateTime.MinValue)
                 post.dateCreated = DateTime.Now;
-
-            var fileName = $"{Config["local:folder"]}_posts/{post.dateCreated.Year}-{post.dateCreated.ToString("MM-dd")}-{post.title}.md";
-
+            string fileName = Storage.AddPost(post);
 
             var frontMatter = $"---\nlayout: post\ntitle: \"{post.title}\"\ndate: {post.dateCreated.ToString("yyyy-MM-dd HH:mm:ss zzz")}";
             if (post.categories != null && post.categories.Length > 0)
                 frontMatter += $"\ncategories: {string.Join(", ", post.categories)}";
             frontMatter += $"\n---\n{post.description}";
 
-            File.WriteAllText(fileName, frontMatter);
+            Storage.WritePost(fileName, frontMatter);
 
             return Task.FromResult(
                 $"{Config["blog:url"]}/{string.Join("/", post.categories!)}/{post.dateCreated.Year}/{post.dateCreated.Month}/{post.dateCreated.Day}/{post.title}.html"
@@ -83,7 +80,7 @@ namespace GitHub.Pages.Writer.API
         public Task<bool> DeletePageAsync(string blogid, string username, string password, string pageid)
         {
             //delete the jekyll markdown file
-            var fileName = $"{Config["local:folder"]}/{pageid}.md";
+            var fileName = GetPageFileName(pageid);
             if (File.Exists(fileName))
                 File.Delete(fileName);
 
@@ -93,7 +90,7 @@ namespace GitHub.Pages.Writer.API
         public Task<bool> DeletePostAsync(string key, string postid, string username, string password, bool publish)
         {
             //delete the jekyll markdown file
-            var fileName = $"{Config["local:folder"]}/_posts/{postid}.md";
+            var fileName = Storage.PostFileName(postid);
             if (File.Exists(fileName))
                 File.Delete(fileName);
 
@@ -106,12 +103,12 @@ namespace GitHub.Pages.Writer.API
             //---
             //layout: page
             //title: "Test Page"
-            //date: 2021-08-01 12:00:00 -0400
+            //date: 2021-08-01 12:00:00
             //categories: Test Category
             //---
             //Test Description
-            var fileName = $"{Config["local:folder"]}/{pageid}.md";
-            var frontMatter = $"---\nlayout: page\ntitle: \"{page.title}\"\ndate: {page.dateCreated.ToString("yyyy-MM-dd HH:mm:ss zzz")}";
+            var fileName = GetPageFileName(pageid);
+            var frontMatter = $"---\nlayout: page\ntitle: \"{page.title}\"\ndate: {page.dateCreated.ToString("yyyy-MM-dd HH:mm:ss")}";
             if (page.categories != null && page.categories.Length > 0)
                 frontMatter += $"\ncategories: {string.Join(", ", page.categories)}";
             frontMatter += $"\n---\n{page.description}";
@@ -121,8 +118,11 @@ namespace GitHub.Pages.Writer.API
             return Task.FromResult(true);
         }
 
-        public Task<bool> EditPostAsync(string postid, string username, string password, Post post, bool publish)
-        {
+        private string GetPageFileName(string pageid) {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> EditPostAsync(string postid, string username, string password, Post post, bool publish) {
             //update the jekyll markdown file with the following front matter:
             //---
             //layout: post
@@ -131,16 +131,13 @@ namespace GitHub.Pages.Writer.API
             //categories: Test Category
             //---
             //Test Description
-            var postParts = postid.Split("/");
-            postParts = postParts.TakeLast(4).ToArray();
-
-            var fileName = $"{Config["local:folder"]}_posts/{postParts[0]}-{postParts[1]}-{postParts[2]}-{postParts.Last().Replace(".html", string.Empty)}.md";
+            string fileName = Storage.PostFileName(postid);
             var frontMatter = $"---\nlayout: post\ntitle: \"{post.title}\"\ndate: {post.dateCreated.ToString("yyyy-MM-dd HH:mm:ss zzz")}";
             if (post.categories != null && post.categories.Length > 0)
                 frontMatter += $"\ncategories: {string.Join(", ", post.categories)}";
             frontMatter += $"\n---\n{post.description}";
 
-            File.WriteAllText(fileName, frontMatter);
+            Storage.WritePost(fileName, frontMatter);
 
             return Task.FromResult(true);
         }
@@ -216,7 +213,7 @@ namespace GitHub.Pages.Writer.API
 
         public Task<Post> GetPostAsync(string postid, string username, string password) {
             //get the jekyll markdown file and parse the front matter
-            var fileName = $"{Config["local:folder"]}_posts/{postid}.md";
+            var fileName = Storage.PostFileName(postid);
             if (!File.Exists(fileName))
                 return Task.FromResult<Post>(new Post {
                     title = "Not Found",
@@ -235,19 +232,21 @@ namespace GitHub.Pages.Writer.API
 
             string description = GetDescription(frontMatter);
 
-            post.description = description.Replace("---\n", "");
+            post.description = description.Replace("---\r\n", string.Empty);
 
             return Task.FromResult(post);
         }
 
         private static string GetDescription(string frontMatter) {
-            return frontMatter.Substring(frontMatter.IndexOf("---\n", frontMatter.IndexOf("---\n") + 4));
+            var index = frontMatter.LastIndexOf("---\r\n");
+            return frontMatter.Substring(index);
         }
 
         public async Task<Post[]> GetRecentPostsAsync(string blogid, string username, string password, int numberOfPosts)
         {
             //get all the jekyll markdown files and parse the front matter
-            var files = Directory.GetFiles($"{Config["local:folder"]}/_posts", "*.md");
+            var files = Directory.GetFiles($"{Config["local:folder"]}/_posts", "*.md").TakeLast(numberOfPosts);
+            
             var posts = new List<Post>();
 
             foreach (var file in files)

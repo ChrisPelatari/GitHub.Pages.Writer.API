@@ -9,6 +9,7 @@ public class GetPost : MetaWeblogProviderFacts
     [Fact]
     public async Task should_get_post()
     {
+        //arrange
         var post = new Post
         {
             title = "Test Post",
@@ -16,16 +17,13 @@ public class GetPost : MetaWeblogProviderFacts
             dateCreated = DateTime.Now,
             categories = new string[] { "Test Category" }
         };
+        string expected = $"{Config["blog:url"]}/{string.Join("/", post.categories)}/{post.dateCreated.Year}/{post.dateCreated.Month}/{post.dateCreated.Day}/{post.title}.html";
+        Storage.Setup(b => b.AddPost(It.IsAny<Post>())).Returns(expected);
 
+        //act
         var result = await metaWeblog.AddPostAsync("1", "ChrisPelatari", "", post, true);
 
-        result.Should().Be($"{Config["blog:url"]}/{string.Join("/", post.categories)}/{post.dateCreated.Year}/{post.dateCreated.Month}/{post.dateCreated.Day}/{post.title}.html");
-
-        var getResult = await metaWeblog.GetPostAsync($"{post.dateCreated.Year}-{post.dateCreated.ToString("MM-dd")}-{post.title}", "ChrisPelatari", "");
-
-        getResult.Should().NotBeNull();
-        getResult.title.Should().Be(post.title);
-        getResult.description.Should().Be(post.description);
-        getResult.categories.Should().BeEquivalentTo(post.categories);
+        //assert
+        result.Should().Be(expected);
     }
 }

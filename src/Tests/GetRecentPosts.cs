@@ -24,5 +24,6 @@ public class GetRecentPosts : MetaWeblogProviderFacts
         var getRecentPostsResult = await metaWeblog.GetRecentPostsAsync("1", "ChrisPelatari", "", 10);
 
         getRecentPostsResult.Should().NotBeEmpty();
+        getRecentPostsResult.Length.Should().BeGreaterThan(0);
     }
 }

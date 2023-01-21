@@ -15,11 +15,25 @@ namespace GitHub.Pages.Writer.API.Services {
         public int AddCategory(Category category) {
             db.Categories.Add(category);
             db.SaveChanges();
-            return category.Id;  
+            return category.Id;
+        }
+
+        public string AddPage(string title) {
+            return
+            $"{Config["local:folder"]}/{title}.md";
+        }
+
+        public string AddPost(Post post) {
+            return $"{Config["local:folder"]}_posts/{post.dateCreated.ToString("yyyy-MM-dd")}-{post.title}.md";
         }
 
         public async Task<Category[]> GetCategories(string blogId, string username, string password) {
-            return db.Categories.ToArray();
+            return await Task.FromResult(db.Categories.ToArray());
+        }
+
+        public string PostFileName(string postid) {
+            var fileName = $"{Config["local:folder"]}{postid.Replace("\\", "/")}.md";
+            return fileName;
         }
 
         public MediaObjectInfo SaveMedia(MediaObject mediaObject) {
@@ -31,6 +45,10 @@ namespace GitHub.Pages.Writer.API.Services {
             File.WriteAllBytes(fileName, Convert.FromBase64String(mediaObject.bits));
 
             return new MediaObjectInfo { url = $"{Config["blog:url"]}/{Config["local:media"]}/{mediaObject.name}" };
+        }
+
+        public void WritePost(string fileName, string frontMatter) { 
+            File.WriteAllText(fileName, frontMatter);
         }
     }
 }
