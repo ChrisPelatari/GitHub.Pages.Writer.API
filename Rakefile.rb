@@ -1,5 +1,5 @@
 task :t do
-  sh "dotnet test src/Tests/Github.Pages.Writer.Tests.csproj"
+  sh "dotnet test src/Tests/Github.Pages.Writer.API.Tests.csproj"
 end
 
 task :b do
