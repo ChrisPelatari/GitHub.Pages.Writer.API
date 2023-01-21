@@ -62,7 +62,8 @@ namespace GitHub.Pages.Writer.API
             //categories: Test Category
             //---
             //Test Description
-            var fileName = $"{Config["local:folder"]}/{post.dateCreated.Year}-{post.dateCreated.Month}-{post.dateCreated.Day}-{post.title}.md";
+            var fileName = $"{Config["local:folder"]}/_posts/{post.dateCreated.ToString("YY-MM-dd")}-{post.title}.md";
+
             var frontMatter = $"---\nlayout: post\ntitle: \"{post.title}\"\ndate: {post.dateCreated.ToString("yyyy-MM-dd HH:mm:ss zzz")}";
             if (post.categories != null && post.categories.Length > 0)
                 frontMatter += $"\ncategories: {string.Join(", ", post.categories)}";
@@ -74,7 +75,7 @@ namespace GitHub.Pages.Writer.API
             File.WriteAllText(fileName, frontMatter);
 
             return Task.FromResult(
-                $"{Config["blog:url"]}/{string.Join("/", post.categories)}/{post.dateCreated.Year}/{post.dateCreated.Month}/{post.dateCreated.Day}/{post.title}.html"
+                $"{Config["blog:url"]}/{string.Join("/", post.categories!)}/{post.dateCreated.Year}/{post.dateCreated.Month}/{post.dateCreated.Day}/{post.title}.html"
             );
         }
 
@@ -193,7 +194,7 @@ namespace GitHub.Pages.Writer.API
         public Task<Page[]> GetPagesAsync(string blogid, string username, string password, int numPages)
         {
             //get all the jekyll markdown files and parse the front matter
-            var files = Directory.GetFiles(Config["local:folder"], "*.md");
+            var files = Directory.GetFiles(Config["local:folder"]!, "*.md");
             var pages = new List<Page>();
 
             foreach (var file in files)
