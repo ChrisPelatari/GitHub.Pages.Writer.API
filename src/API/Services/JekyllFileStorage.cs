@@ -10,13 +10,12 @@ public class JekyllFileStorage : IFileStorage {
         public IConfiguration Config { get; }
 
         // Configuration
-        string postsDirectory = "_posts";
-        string draftsDirectory = "_drafts";
+        const string POSTS = "_posts";
+        const string DRAFTS = "_drafts";
         string configFile = "_config.yml";
-        string extension = ".md"; // Assume the extension is .md
-        string title = "My Post Title";
-        string templateFile = "_includes/post_template.md";
-        string editor = "code.exe"; // Assume the editor is Notepad
+        const string EXTENSION = ".md"; // Assume the extension is .md
+        const string POST_TEMPLATE = "_includes/post_template.md";
+        const string EDITOR = "code.exe"; // Assume the editor is vs code
 
         public JekyllFileStorage(IConfiguration config, BlogDbContext context) {
             Config = config;
@@ -35,16 +34,7 @@ public class JekyllFileStorage : IFileStorage {
         }
 
         public string AddPost(Post post) {
-            // Get the date and time
-            string date = DateTime.Now.ToString("yyyy-MM-dd");
-            string time = DateTime.Now.ToString("HH:mm:ss");
-            string postTime = $"{date} {time}";
-
-            // Write the post
-
-            string filename = date + "-" + TransformToSlug(title, extension);
-            string content = ReadFile(templateFile);
-            CreateFile(postsDirectory, filename, content, title, editor, postTime);
+            Create(post.title, true);
                 
             return $"{Config["local:folder"]}_posts/{post.dateCreated.ToString("yyyy-MM-dd")}-{post.title}.md";
         }
@@ -105,5 +95,26 @@ public class JekyllFileStorage : IFileStorage {
             string characters = @"(""|'|!|\?|:|\s\z)";
             string whitespace = @"\s";
             return $"{Regex.Replace(Regex.Replace(title, characters, ""), whitespace, "-").ToLower()}{extension}";
+        }
+
+        static string DateTitle(string title)
+        {
+            if (string.IsNullOrEmpty(title))
+            {
+                return DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            }
+            return title;
+        }
+
+        private static void Create(string title, bool publish)
+        {
+            if (string.IsNullOrWhiteSpace(title))
+            {
+                title = string.Format("{0} {1}", DateTime.Now.ToString("yyyy-MM-dd"), DateTime.Now.ToString("HH:mm:ss"));
+            }
+            string filename = TransformToSlug(title, EXTENSION);
+            string content = ReadFile(POST_TEMPLATE);
+
+            CreateFile(publish ? POSTS : DRAFTS, filename, content, title, EDITOR, $"{DateTime.Now.ToString("yyyy-MM-dd")} {DateTime.Now.ToString("HH:mm:ss")}");
         }
     }
