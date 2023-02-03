@@ -36,7 +36,7 @@ public class JekyllFileStorage : IFileStorage {
         public string AddPost(Post post) {
             Create(post.title, true);
                 
-            return $"{Config["local:folder"]}_posts/{post.dateCreated.ToString("yyyy-MM-dd")}-{post.title}.md";
+            return PostFileName(post.postid.ToString());
         }
 
         public async Task<Category[]> GetCategories(string blogId, string username, string password) {
@@ -110,7 +110,7 @@ public class JekyllFileStorage : IFileStorage {
         {
             if (string.IsNullOrWhiteSpace(title))
             {
-                title = string.Format("{0} {1}", DateTime.Now.ToString("yyyy-MM-dd"), DateTime.Now.ToString("HH:mm:ss"));
+                title = DateTitle(title);
             }
             string filename = TransformToSlug(title, EXTENSION);
             string content = ReadFile(POST_TEMPLATE);
